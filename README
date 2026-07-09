@@ -1,0 +1,26 @@
+# Previsão das Reservas Internacionais do Brasil com Regressão Linear
+ 
+Script em Python que busca dados históricos das Reservas Internacionais do Brasil na API do Banco Central, treina um modelo de Regressão Linear simples e plota um gráfico comparando os dados reais com a previsão do modelo.
+ 
+## O que o código faz
+ 
+1. Busca os dados históricos da série "Reservas Internacionais" (código SGS 3546) na API do Banco Central do Brasil, no período de 07/07/2016 a 07/07/2026.
+2. Converte os dados recebidos (JSON) em uma tabela (DataFrame) usando pandas.
+3. Trata os dados: converte a coluna de datas para o formato correto e os valores para número decimal.
+4. Cria uma coluna `dias`, contando quantos dias se passaram desde a primeira data da série. Isso é necessário porque o modelo de regressão precisa de um número como entrada, não de uma data.
+5. Separa os dados em treino (80%) e teste (20%) usando `train_test_split`.
+6. Treina um modelo de `LinearRegression` usando apenas os dados de treino.
+7. Gera duas previsões:
+   - `previsoes`: usando apenas o conjunto de teste (20% dos dados).
+   - `previsao_completa`: usando todos os dias da série, para desenhar a linha de previsão completa no gráfico.
+8. Plota um gráfico com:
+   - Linha cinza: dados reais das reservas internacionais.
+   - Linha azul: previsão do modelo (regressão linear).
+## Sobre a fonte dos dados
+ 
+Os dados vêm do Sistema Gerenciador de Séries Temporais (SGS) do Banco Central do Brasil:
+ 
+```
+https://api.bcb.gov.br/dados/serie/bcdata.sgs.CODIGO/dados?formato=json&dataInicial=DD/MM/AAAA&dataFinal=DD/MM/AAAA
+```
+
